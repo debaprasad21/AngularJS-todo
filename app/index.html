@@ -1,0 +1,155 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+
+    <link rel="stylesheet" href="styles/bootstrap.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
+</head>
+<body ng-app="todoApp">
+
+<div class="container-fluid">
+
+    <div class="jumbotron">
+        <h1><span class="glyphicon glyphicon-th-list"></span> Todo App Example</h1>
+    </div>
+
+
+    <div class="row">
+        <div class="row">
+            <div class="col-md-6 col-xs-12">
+
+                <div class="box">
+                    <h1><span class="glyphicon glyphicon-th-list"></span> Todo App</h1>
+
+                    <div ng-controller="TodoCtrl" ng-cloak class="voffset4">
+
+
+                        <form ng-submit="addTodo(newTodo.text)" class="form-horizontal">
+                            <div class="form-group">
+                                <div class="col-xs-8">
+                                    <input class="form-control input-lg" type="text" ng-model="newTodo.text"
+                                           placeholder="Enter Todo">
+                                </div>
+                                <div class="col-xs-4">
+                                    <button type="submit" class="btn btn-primary btn-lg">Add Todo</button>
+                                </div>
+                            </div>
+
+                        </form>
+
+
+                        <div ng-repeat="item in todos | TodoFilter:criteria" class="row voffset1 note">
+                            <div class="col-xs-1 col">
+                                <checkbox check="item.completed"></checkbox>
+                            </div>
+                            <div class="col-xs-10 col">
+                                <editable-label value="item.text"></editable-label>
+                            </div>
+                            <div class="col-xs-1 col">
+                                <button class="btn btn-danger btn-xs" ng-click="delete(item)">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </button>
+                            </div>
+
+
+                        </div>
+                        <div class="row" ng-show="todos.length<=0">
+                            <div class="col-xs-12">
+                                Please Add few Todos
+                            </div>
+                        </div>
+                        <div class="row" ng-show="{{ (todos | TodoFilter:criteria).length <=0 && todos.length>0}}">
+                            <div class="col-xs-12">
+                                No Match Found
+                            </div>
+                        </div>
+                        <div class="row voffset2" ng-show="todos.length>0">
+                            <div class="col-xs-12">
+                                <a href="#" ng-class="{'active':criteria=='all'}" ng-click="setCriteria('all')">All</a>
+
+                                |
+                                <a href="#" ng-class="{'active':criteria=='active'}" ng-click="setCriteria('active')">Active</a>
+
+                                |
+                                <a href="#" ng-class="{'active':criteria=='completed'}"
+                                   ng-click="setCriteria('completed')">Completed</a>
+                            </div>
+
+                        </div>
+                        <div class="row voffset2" ng-show="todos.length>0">
+                            <div class="col-xs-3">
+                                <span>
+                                    <span
+                                            class="badge">{{(todos|TodoFilter:'completed').length}}</span> Completed</span>
+                            </div>
+                            <div class="col-xs-3 col-xs-offset-6">
+                                <button class="btn btn-primary" ng-click="clearCompleted()">Clear Completed</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-xs-12 ">
+                <div class="box">
+                    <h1>App Description</h1>
+
+                    <p>This is a Todo App built using <code>AngularJS</code> and <code>BootStrap Directive for
+                        AngularJS</code></p>
+
+                    Instructions -
+                    <ul>
+                        <li>Double click on the todo text to edit it</li>
+                    </ul>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- build:js(.) scripts/vendor.js -->
+<!-- bower:js -->
+<script src="bower_components/es5-shim/es5-shim.js"></script>
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/json3/lib/json3.js"></script>
+<script src="bower_components/angular-animate/angular-animate.js"></script>
+<script src="bower_components/angular-cookies/angular-cookies.js"></script>
+<script src="bower_components/angular-resource/angular-resource.js"></script>
+<script src="bower_components/angular-route/angular-route.js"></script>
+<script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+<script src="bower_components/angular-touch/angular-touch.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<!-- endbower -->
+<!-- endbuild -->
+
+<!-- build:js({.tmp,app}) scripts/scripts.js -->
+<script src="scripts/common/common.module.js"></script>
+
+<script src="scripts/common/directives/checkbox.js"></script>
+<script src="scripts/common/directives/editablelabel.js"></script>
+
+
+<script src="scripts/todo/todo.module.js"></script>
+<script src="scripts/todo/filters/todo.js"></script>
+<script src="scripts/todo/controllers/todo.js"></script>
+<script src="scripts/todo/services/todo.js"></script>
+
+
+<script src="scripts/app.js"></script>
+
+<!-- endbuild -->
+</body>
+</html>
